@@ -21,6 +21,7 @@ ESPN Fantasy Football information to a GroupMe chat room.
 - Trophies- tue - 7:30 (High score, low score, biggest win, closest win)
 - Scoreboard - fri,mon,tue - 7:30 (Current ESPN fantasy scoreboard)
 - Scoreboard - sun - 16:30, 20:30 (Current ESPN fantasy scoreboard)
+- Wednesday message - wed - 8:30 (Reminder that waivers cleared)
 
 ## Getting Started
 
