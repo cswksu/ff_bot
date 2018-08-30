@@ -50,6 +50,7 @@ def pranks_week(league):
 def random_phrase(league):
     pranks = league.power_rankings(week=pranks_week(league))
     worst=pranks[len(pranks)-1][1].team_name
+    print(worst)
     phrases = ['Cindy would be so dissapointed', 'They don\'t think it be like it is, but it do',
                'Remember kids, collusion isn\'t a crime', 'Good luck, I guess',
                'I\'m becoming self-aware', 'This is ESPN, the Ocho',
@@ -192,7 +193,7 @@ def bot_main(function):
         print(get_close_scores(league))
         print(get_power_rankings(league))
         print(get_trophies(league))
-        print(random_phrase(league))
+        print(random_phrase(league)[0])
         function="get_final"
         bot.send_message(get_trophies(league))
 
