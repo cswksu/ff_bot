@@ -227,8 +227,9 @@ def bot_main(function):
     elif function=="init":
         print('initializing')
         try:
-            text = random_phrase(league)
+            text = random_phrase(league)[0]
             print(text)
+            print(bot_id)
             bot.send_message(text)
         except KeyError:
             #do nothing here, empty init message
