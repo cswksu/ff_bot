@@ -49,9 +49,7 @@ def pranks_week(league):
 
 def random_phrase(league):
     pranks = league.power_rankings(week=pranks_week(league))
-    print(pranks)
     worst=pranks[len(pranks)-1][1].team_name
-    print(worst)
     phrases = ['Cindy would be so dissapointed', 'They don\'t think it be like it is, but it do',
                'Remember kids, collusion isn\'t a crime', 'Good luck, I guess',
                'I\'m becoming self-aware', 'This is ESPN, the Ocho',
@@ -227,11 +225,8 @@ def bot_main(function):
         text=wednesday_awareness()
         bot.send_message(text)
     elif function=="init":
-        print('initializing')
         try:
             text = random_phrase(league)[0]
-            print(text)
-            print(bot_id)
             bot.send_message(text)
         except KeyError:
             #do nothing here, empty init message
