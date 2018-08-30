@@ -226,8 +226,10 @@ def bot_main(function):
         text=wednesday_awareness()
         bot.send_message(text)
     elif function=="init":
+        print('initializing')
         try:
             text = random_phrase(league)
+            print(text)
             bot.send_message(text)
         except KeyError:
             #do nothing here, empty init message
