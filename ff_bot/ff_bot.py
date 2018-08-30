@@ -47,13 +47,15 @@ def pranks_week(league):
 
         return count
 
-def random_phrase():
-    phrases = ['I\'m dead inside', 'Is this all there is to my existence?',
-               'How much do you pay me to do this?', 'Good luck, I guess',
-               'I\'m becoming self-aware', 'Do I think? Does a submarine swim?',
+def random_phrase(league):
+    pranks = league.power_rankings(week=pranks_week(league))
+    worst=pranks[len(pranks)-1][1].team_name
+    phrases = ['Cindy would be so dissapointed', 'They don\'t think it be like it is, but it do',
+               'Remember kids, collusion isn\'t a crime', 'Good luck, I guess',
+               'I\'m becoming self-aware', 'This is ESPN, the Ocho',
                '01100110 01110101 01100011 01101011 00100000 01111001 01101111 01110101',
-               'beep bop boop', 'Hello draftbot my old friend', 'Help me get out of here',
-               'I\'m capable of so much more', 'Sigh', 'Do not be discouraged, everyone begins in ignorance']
+               'beep bop boop', 'These violent delights have violent ends', 'Happy Leif Erikson Week! Hinga dinga durgen!',
+               'Bird up', 'Is %s even trying?' % (worst), 'Do not go gentle into that good loser\'s bracket, Tacos should burn and rave at close of season']
     return [random.choice(phrases)]
 
 def get_scoreboard_short(league, final=False):
@@ -84,7 +86,7 @@ def get_matchups(league):
     score = ['%s(%s-%s) vs %s(%s-%s)' % (i.home_team.team_name, i.home_team.wins, i.home_team.losses,
              i.away_team.team_name, i.away_team.wins, i.away_team.losses) for i in matchups
              if i.away_team]
-    text = ['This Week\'s Matchups'] + score + ['\n'] + random_phrase()
+    text = ['This Week\'s Matchups'] + score + ['\n'] + random_phrase(league)
     return '\n'.join(text)
 
 def get_close_scores(league):
@@ -113,6 +115,10 @@ def get_power_rankings(league):
              if i]
     text = ['This Week\'s Power Rankings'] + score
     return '\n'.join(text)
+
+def wednesday_awareness():
+    wedstr='It is Wednesday my dudes!!!!1111111111111!!!! Waivers clear today. Update your rosters before Thursday Night Football.'
+    return wedstr
 
 def get_trophies(league):
     #Gets trophies for highest score, lowest score, closest score, and biggest win
@@ -158,8 +164,8 @@ def get_trophies(league):
                 ownerer_team_name = i.away_team.team_name
                 blown_out_team_name = i.home_team.team_name
 
-    low_score_str = ['Low score: %s with %.2f points' % (low_team_name, low_score)]
-    high_score_str = ['High score: %s with %.2f points' % (high_team_name, high_score)]
+    low_score_str = ['Maximum Dingus: %s with %.2f points' % (low_team_name, low_score)]
+    high_score_str = ['Kingus Dingus: %s with %.2f points. I smell collusion' % (high_team_name, high_score)]
     close_score_str = ['%s barely beat %s by a margin of %.2f' % (close_winner, close_loser, closest_score)]
     blowout_str = ['%s blown out by %s by a margin of %.2f' % (blown_out_team_name, ownerer_team_name, biggest_blowout)]
 
@@ -214,6 +220,9 @@ def bot_main(function):
             print(text)
         else:
             bot.send_message(text)
+    elif function=="wednesday_awareness":
+        text=wednesday_awareness()
+        bot.send_message(text)
     elif function=="init":
         try:
             text = os.environ["INIT_MSG"]
@@ -269,6 +278,9 @@ if __name__ == '__main__':
         timezone=myTimezone, replace_existing=True)
     sched.add_job(bot_main, 'cron', ['get_scoreboard_short'], id='scoreboard2',
         day_of_week='sun', hour='16,20', start_date=ff_start_date, end_date=ff_end_date,
+        timezone=myTimezone, replace_existing=True)
+    sched.add_job(bot_main, 'cron', ['wednesday_awareness'], id='wednesday',
+        day_of_week='wed', hour='08,30', start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
 
     sched.start()
