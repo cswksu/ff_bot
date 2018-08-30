@@ -49,6 +49,7 @@ def pranks_week(league):
 
 def random_phrase(league):
     pranks = league.power_rankings(week=pranks_week(league))
+    print(pranks)
     worst=pranks[len(pranks)-1][1].team_name
     print(worst)
     phrases = ['Cindy would be so dissapointed', 'They don\'t think it be like it is, but it do',
