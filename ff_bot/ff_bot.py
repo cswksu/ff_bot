@@ -225,7 +225,7 @@ def bot_main(function):
         bot.send_message(text)
     elif function=="init":
         try:
-            text = os.environ["INIT_MSG"]
+            text = random_phrase(league)
             bot.send_message(text)
         except KeyError:
             #do nothing here, empty init message
