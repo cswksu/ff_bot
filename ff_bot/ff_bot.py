@@ -13,7 +13,6 @@ class GroupMeBot(object):
     #Creates GroupMe Bot to send messages
     def __init__(self, bot_id):
         self.bot_id = bot_id
-        print(self.bot_id)
 
     def __repr__(self):
         return "GroupMeBot(%s)" % self.bot_id
@@ -185,7 +184,7 @@ def bot_main(function):
     bot = GroupMeBot(bot_id)
     league = League(league_id, year)
 
-    test = True
+    test = False
     if test:
         print(get_matchups(league))
         print(get_scoreboard(league))
