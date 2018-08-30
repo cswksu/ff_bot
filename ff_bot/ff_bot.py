@@ -184,7 +184,7 @@ def bot_main(function):
     bot = GroupMeBot(bot_id)
     league = League(league_id, year)
 
-    test = False
+    test = True
     if test:
         print(get_matchups(league))
         print(get_scoreboard(league))
