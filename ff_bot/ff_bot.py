@@ -280,7 +280,7 @@ if __name__ == '__main__':
         day_of_week='sun', hour='16,20', start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
     sched.add_job(bot_main, 'cron', ['wednesday_awareness'], id='wednesday',
-        day_of_week='wed', hour='08,30', start_date=ff_start_date, end_date=ff_end_date,
+        day_of_week='wed', hour=8, minute=30, start_date=ff_start_date, end_date=ff_end_date,
         timezone=myTimezone, replace_existing=True)
 
     sched.start()
