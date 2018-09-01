@@ -49,13 +49,16 @@ def pranks_week(league):
 
 def random_phrase(league):
     pranks = league.power_rankings(week=pranks_week(league))
-    worst=pranks[len(pranks)-1][1].team_name
-    phrases = ['Cindy would be so dissapointed', 'They don\'t think it be like it is, but it do',
+    worst=pranks[len(pranks)-1][1].team_owner
+    randIdx=int(len(pranks)*random.random())
+    randTeamName=pranks[randIdx][1].team_owner
+    phrases = ['Cindy would be so disappointed', 'They don\'t think it be like it is, but it do',
                'Remember kids, collusion isn\'t a crime', 'Good luck, I guess',
                'I\'m becoming self-aware', 'This is ESPN, the Ocho',
                '01100110 01110101 01100011 01101011 00100000 01111001 01101111 01110101',
                'beep bop boop', 'These violent delights have violent ends', 'Happy Leif Erikson Week! Hinga dinga durgen!',
-               'Bird up', 'Is %s even trying?' % (worst), 'Do not go gentle into that good loser\'s bracket, Tacos should burn and rave at close of season']
+               'Bird up', 'Is %s even trying?' % (worst), 'Do not go gentle into that good loser\'s bracket, Tacos should burn and rave at close of season',
+               'Have you tried turning me off and on again?', 'I\'m not mad, %s, just disappointed' % (randTeamName)]
     return [random.choice(phrases)]
 
 def get_scoreboard_short(league, final=False):
@@ -116,8 +119,17 @@ def get_power_rankings(league):
     text = ['This Week\'s Power Rankings'] + score
     return '\n'.join(text)
 
-def wednesday_awareness():
-    wedstr='It is Wednesday my dudes!!!!1111111111111!!!! Waivers clear today. Update your rosters before Thursday Night Football.'
+def wednesday_awareness(league):
+    count = 1
+    first_team = next(iter(league.teams or []), None)
+    #Iterate through the first team's scores until you reach a week with 0 points scored
+    for o in first_team.scores:
+        if o == 0:
+            break
+        else:
+            count = count + 1
+    weekNum=count
+    wedstr='It is Wednesday my dudes! Welcome to week %i Waivers cleared today. Update your rosters before Thursday Night Football.' % (weekNum)
     return wedstr
 
 def get_trophies(league):
@@ -222,7 +234,7 @@ def bot_main(function):
         else:
             bot.send_message(text)
     elif function=="wednesday_awareness":
-        text=wednesday_awareness()
+        text=wednesday_awareness(league)
         bot.send_message(text)
     elif function=="init":
         try:
