@@ -49,9 +49,9 @@ def pranks_week(league):
 
 def random_phrase(league):
     pranks = league.power_rankings(week=pranks_week(league))
-    worst=pranks[len(pranks)-1][1].team_owner
+    worst=pranks[len(pranks)-1][1].owner
     randIdx=int(len(pranks)*random.random())
-    randTeamName=pranks[randIdx][1].team_owner
+    randTeamName=pranks[randIdx][1].owner
     phrases = ['Cindy would be so disappointed', 'They don\'t think it be like it is, but it do',
                'Remember kids, collusion isn\'t a crime', 'Good luck, I guess',
                'I\'m becoming self-aware', 'This is ESPN, the Ocho',
