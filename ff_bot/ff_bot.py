@@ -26,12 +26,12 @@ class GroupMeBot(object):
                     }
 
         headers = {'content-type': 'application/json'}
-        r = requests.post("https://api.groupme.com/v3/bots/post",
-                          data=json.dumps(template), headers=headers)
-        if r.status_code != 202:
-            raise GroupMeException('Invalid BOT_ID')
-
-        return r
+        if self.bot_id != "1":
+            r = requests.post("https://api.groupme.com/v3/bots/post",
+                              data=json.dumps(template), headers=headers)
+            if r.status_code != 202:
+                raise GroupMeException('Invalid BOT_ID')
+            return r
 
 def pranks_week(league):
         count = 1
