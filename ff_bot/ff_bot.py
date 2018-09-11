@@ -239,7 +239,7 @@ def bot_main(function):
     elif function=="init":
         try:
             text = random_phrase(league)[0]
-            bot.send_message(text)
+            #bot.send_message(text)
         except KeyError:
             #do nothing here, empty init message
             pass
