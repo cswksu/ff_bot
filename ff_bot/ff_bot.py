@@ -26,7 +26,7 @@ class GroupMeBot(object):
                     }
 
         headers = {'content-type': 'application/json'}
-        if self.bot_id != "1":
+        if self.bot_id not in (1, "1", ''):
             r = requests.post("https://api.groupme.com/v3/bots/post",
                               data=json.dumps(template), headers=headers)
             if r.status_code != 202:
@@ -116,7 +116,7 @@ def get_power_rankings(league):
 
     score = ['%s - %s' % (i[0], i[1].team_name) for i in pranks
              if i]
-    text = ['This Week\'s Power Rankings'] + score
+    text = ['This Week\'s Power Triangle Rankings'] + score
     return '\n'.join(text)
 
 def wednesday_awareness(league):
@@ -239,7 +239,8 @@ def bot_main(function):
     elif function=="init":
         try:
             text = random_phrase(league)[0]
-            #bot.send_message(text)
+            if(text!=''):
+                bot.send_message(text)
         except KeyError:
             #do nothing here, empty init message
             pass
