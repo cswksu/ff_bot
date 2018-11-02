@@ -145,8 +145,16 @@ def get_trophies(league):
     biggest_blowout = -1
     blown_out_team_name = ''
     ownerer_team_name = ''
+    winners=set()
+    losers=set()
 
     for i in matchups:
+        if i.home_score > i.away_score:
+            losers.add(i.away_team.owner)
+            winners.add(i.home_team.owner)
+        if i.home_score < i.away_score:
+            winners.add(i.away_team.owner)
+            losers.add(i.home_team.owner)
         if i.home_score > high_score:
             high_score = i.home_score
             high_team_name = i.home_team.team_name
@@ -182,6 +190,13 @@ def get_trophies(league):
     blowout_str = ['%s blown out by %s by a margin of %.2f' % (blown_out_team_name, ownerer_team_name, biggest_blowout)]
 
     text = ['Trophies of the week:'] + low_score_str + high_score_str + close_score_str + blowout_str
+    
+    pranks = league.power_rankings(week=pranks_week(league)-1)
+    if pranks[len(pranks)-1][1].owner in winners:
+        text = text + ['Congrats on the win, %s. It was about time.' % (pranks[len(pranks)-1][1].team_name)]
+    if pranks[0][1].owner in losers:
+        text = text + ['Looks like %s forgot how to get good. Oh how the mighty have fallen...' % (pranks[0][1].team_name)]
+    
     return '\n'.join(text)
 
 def bot_main(function):
